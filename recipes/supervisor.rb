@@ -4,6 +4,8 @@
 #
 # Copyright (C) 2013 Fewbytes
 # 
+Chef::Log.info ("JLK running storm::supervisor")
+Chef::Log.info ("JLK include recipe 'storm' in storm::supervisor")
 
 include_recipe "storm"
 

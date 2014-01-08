@@ -4,7 +4,8 @@
 #
 # Copyright (C) 2013 Fewbytes
 # 
-
+Chef::Log.info ("JLK running storm::nimbus")
+Chef::Log.info ("JLK include recipe 'storm' in storm::nimbus")
 include_recipe "storm"
 
 runit_service "storm-ui" do

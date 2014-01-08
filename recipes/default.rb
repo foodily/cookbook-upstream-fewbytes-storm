@@ -4,6 +4,7 @@
 #
 # Copyright (C) 2013 Fewbytes
 # 
+Chef::Log.info ("JLK running storm::default")
 
 package "zip"
 include_recipe "java"
@@ -68,19 +69,10 @@ else
 	nimbus = if node.run_context.loaded_recipe? "storm::nimbus"
 		node
 	else
-                Chef::Log.debug node.run_context.loaded_recipes
-                Chef::Log.debug node.to_json
-                Chef::Log.debug 'role:'+ node["storm"]["nimbus"]["role"]
-                Chef::Log.debug 'storm_cluster_name:'+node["storm"]["cluster_name"]
-                Chef::Log.debug 'chef_environment:'+node.chef_environment
 		nimbus_nodes = search(:node, "role:#{node["storm"]["nimbus"]["role"]} AND storm_cluster_name:#{node["storm"]["cluster_name"]} AND chef_environment:#{node.chef_environment}")
 		raise RuntimeError, "Nimbus node not found" if nimbus_nodes.empty?
 		nimbus_nodes.sort{|a, b| a.name <=> b.name}.first
 	end
-        Chef::Log.debug node.to_json	
-        Chef::Log.debug "cluster" + search(:node, "zookeeper_cluster_name:#{node["storm"]["zookeeper"]["cluster_name"]}" ).inspect
-        Chef::Log.debug "env" + search(:node, "chef_environment:#{node.chef_environment}" ).inspect	
-        Chef::Log.debug "zookeeper_cluster_name:" + node["storm"]["zookeeper"]["cluster_name"]
 
         zk_nodes = search(:node, "zookeeper_cluster_name:#{node["storm"]["zookeeper"]["cluster_name"]} AND chef_environment:#{node.chef_environment}").sort{|a, b| a.name <=> b.name}
 	raise RuntimeError, "No zookeeper nodes nodes found" if zk_nodes.empty?

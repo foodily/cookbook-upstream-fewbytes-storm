@@ -4,7 +4,7 @@ maintainer_email "avishai@fewbytes.com"
 license          "Apache v2"
 description      "Installs/Configures storm"
 long_description IO.read(File.join(File.dirname(__FILE__), 'README.md'))
-version          "0.1.13"
+version          "0.1.19"
 
 depends          "ark"
 depends          "java"
